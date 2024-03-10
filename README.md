@@ -5,9 +5,11 @@
 # TOOLS AND FRAMEWORKS
 - React
 - Javascript
+- Tailwind css
 
 # COMMIT INFORMATION
 Created a project structure/tree defining the project structure by reorganizing directories to include separate folders for components, pages, and services.
+
 
 # Project structure
 
