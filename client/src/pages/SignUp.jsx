@@ -1,9 +1,5 @@
-import React from 'react'
+import React from "react";
 
 export default function SignUp() {
-  return (
-    <div className='text-white'>
-      Sgin up
-    </div>
-  )
+  return <div className="text-white">Sign up</div>;
 }
