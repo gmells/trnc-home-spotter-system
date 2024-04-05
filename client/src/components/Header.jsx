@@ -46,8 +46,8 @@ export default function Header() {
             <Link to="/properties">
               <li className="text-white hover:underline">Properties</li>
             </Link>
-            <Link to="/sign-in">
-              <li className="text-white hover:underline">Sign In</li>
+            <Link to="/sign-up">
+              <li className="text-white hover:underline">Sign Up</li>
             </Link>
           </ul>
 
