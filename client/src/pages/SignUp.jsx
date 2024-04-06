@@ -1,18 +1,40 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function SignUp() {
+  const [formInfo, setformInfo] = useState({});
+  const handleChange = (e) => {
+    setformInfo({
+      ...formInfo,
+      [e.target.id]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const res = await fetch("/api/auth/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formInfo),
+    });
+    const data = await res.json();
+  };
+
   return (
     <div className="text-white p-3 max-w-lg mx-auto ">
       <h1 className="text-white text-4xl my-7 text-center font-semibold">
         Sign up
       </h1>
 
-      <form className="flex flex-col gap-4">
+      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="username"
           className="border-slate-800 bg-slate-800 rounded-lg p-3"
           id="username"
+          onChange={handleChange}
         />
 
         <input
@@ -20,6 +42,7 @@ export default function SignUp() {
           placeholder="email"
           className="border-slate-800 bg-slate-800 rounded-lg p-3"
           id="email"
+          onChange={handleChange}
         />
 
         <input
@@ -27,6 +50,7 @@ export default function SignUp() {
           placeholder="password"
           className="border-slate-800 bg-slate-800 rounded-lg p-3"
           id="password"
+          onChange={handleChange}
         />
 
         <button className="bg-slate-200 text-slate-700 p-3 rounded-lg uppercase hover:opacity-85 disabled:opacity-80 font-bold">
