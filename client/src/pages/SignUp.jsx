@@ -20,7 +20,9 @@ export default function SignUp() {
       body: JSON.stringify(formInfo),
     });
     const data = await res.json();
+    console.log(data);
   };
+  console.log(formInfo);
 
   return (
     <div className="text-white p-3 max-w-lg mx-auto ">
