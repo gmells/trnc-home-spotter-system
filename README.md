@@ -27,16 +27,21 @@ Created a project structure/tree defining the project structure by reorganizing 
 |   |   |-- PropertyCard.js
 |   |-- pages
 |   |   |-- Home.js
-|   |   |-- SearchResults.js
-|   |   |-- PropertyDetails.js
+|   |   |-- Profile.js
+|   |   |-- Properties.js
+|   |   |-- Contact.js
+|   |   |-- About.js
+|   |   |-- SignIn.js
+|   |   |-- SignUp.js
+|   |-- App.js
+|   |-- index.css
+|   |-- main.jsx
+
 |   |-- services
 |   |   |-- api.js
 |   |-- App.js
 |   |-- index.js
 |-- public
-|   |-- index.html
-|   |-- favicon.ico
-|   |-- manifest.json
 |-- package.json
 |-- README.md
 |-- .gitignore
