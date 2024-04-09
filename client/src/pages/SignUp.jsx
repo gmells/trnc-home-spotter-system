@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 
 export default function SignUp() {
   const [formInfo, setformInfo] = useState({});
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const handleChange = (e) => {
     setformInfo({
       ...formInfo,
@@ -20,6 +22,11 @@ export default function SignUp() {
       body: JSON.stringify(formInfo),
     });
     const data = await res.json();
+    if (data.success === false) {
+      setError(data.message);
+      setLoading(false);
+      return;
+    }
     console.log(data);
   };
   console.log(formInfo);
@@ -55,8 +62,11 @@ export default function SignUp() {
           onChange={handleChange}
         />
 
-        <button className="bg-slate-200 text-slate-700 p-3 rounded-lg uppercase hover:opacity-85 disabled:opacity-80 font-bold">
-          sign up
+        <button
+          disabled={loading}
+          className=" bg-slate-200 text-slate-700 p-3 rounded-lg uppercase hover:opacity-85 disabled:opacity-80 font-bold"
+        >
+          {loading ? "Loading..." : "Sign Up"}
         </button>
       </form>
 
