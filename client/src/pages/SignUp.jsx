@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function SignUp() {
   const [formInfo, setformInfo] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const handleChange = (e) => {
     setformInfo({
       ...formInfo,
@@ -14,27 +15,36 @@ export default function SignUp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch("/api/auth/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formInfo),
-    });
-    const data = await res.json();
-    if (data.success === false) {
-      setError(data.message);
+    try {
+      setLoading(true);
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formInfo),
+      });
+      const data = await res.json();
+      console.log(data);
+      if (data.success === false) {
+        setLoading(false);
+        setError(data.message);
+
+        return;
+      }
       setLoading(false);
-      return;
+      setError(null);
+      navigate("/sign-in");
+    } catch (error) {
+      setLoading(false);
+      setError(error.message);
     }
-    console.log(data);
   };
-  console.log(formInfo);
 
   return (
     <div className="text-white p-3 max-w-lg mx-auto ">
       <h1 className="text-white text-4xl my-7 text-center font-semibold">
-        Sign up
+        Sign Up
       </h1>
 
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
@@ -76,6 +86,7 @@ export default function SignUp() {
           <span className="text-blue-500 hover:font-semibold">Sign in</span>
         </Link>
       </div>
+      {error && <p className="text-red-600 mt-4 ">Error Details: {error}</p>}
     </div>
   );
 }

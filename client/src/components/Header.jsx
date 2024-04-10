@@ -27,7 +27,7 @@ export default function Header() {
         </Link>
 
         <div
-          className={`nav-panel flex md:flex-row md:top-[6%] flex-col md:static absolute bg-slate-900 md:min-h-fit min-h-[60vh] gap-[4vw]  items-center left-0 top-0 md:w-auto w-full pt-6 transition-all duration-300 ${
+          className={`nav-panel flex md:flex-row md:top-[6%] flex-col md:static absolute bg-slate-900 md:min-h-fit min-h-[60vh] gap-[4vw]  items-center md:items-center left-0 top-0 md:w-auto w-full pt-6 transition-all duration-300 ${
             menuOpen ? " top-[6%]" : "-top-[100%] hidden"
           }`}
           onClick={closeMenu}
