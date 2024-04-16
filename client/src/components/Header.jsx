@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/images/home.png";
 import { HiOutlineMenu } from "react-icons/hi";
@@ -15,11 +15,17 @@ export default function Header() {
     setMenuOpen(false);
   }
 
+  useEffect(() => {
+    if (window.innerWidth >= 768) {
+      setMenuOpen(true);
+    }
+  }, []);
+
   return (
     <header className="bg-slate-800 shadow-md">
       <nav className="flex justify-between items-center w-[92%] mx-auto p-3">
         <Link to="/" onClick={closeMenu}>
-          <div className="font-bold text-sm sm:text-xl flex flex-wrap hover:shadow-lg items-center">
+          <div className="font-bold text-sm sm:text-xl flex flex-wrap hover:shadow-lg items-center md:items-center md:flex-wrap">
             <img className="w-7" src={logo} alt="Logo" />
             <span className="text-slate-500">TRNC</span>
             <span className="text-slate-200">HOMESPOTTER</span>
@@ -27,7 +33,7 @@ export default function Header() {
         </Link>
 
         <div
-          className={`nav-panel flex md:flex-row md:top-[6%] flex-col md:static absolute bg-slate-900 md:min-h-fit min-h-[60vh] gap-[4vw]  items-center md:items-center left-0 top-0 md:w-auto w-full pt-6 transition-all duration-300 ${
+          className={`nav-panel flex md:flex-row flex-col md:static absolute bg-slate-900  md:justify-evenly bg-transparent min-h-[60vh] md:min-h-[7vh]  gap-[4vw]  items-center  left-0 top-0 md: w-full h-[50%] pt-6  ${
             menuOpen ? " top-[8%]" : "-top-[100%] hidden"
           }`}
           onClick={closeMenu}
@@ -58,17 +64,20 @@ export default function Header() {
           </Link>
         </div>
 
-        {menuOpen ? (
-          <IoMdClose
-            onClick={onToggleMenu}
-            className="menu w-7 h-7 cursor-pointer text-white md:hidden"
-          />
-        ) : (
-          <HiOutlineMenu
-            onClick={onToggleMenu}
-            className="menu w-7 h-7 cursor-pointer text-white md:hidden"
-          />
-        )}
+        <div className="md:hidden">
+          {" "}
+          {menuOpen ? (
+            <IoMdClose
+              onClick={onToggleMenu}
+              className="menu w-7 h-7 cursor-pointer text-white"
+            />
+          ) : (
+            <HiOutlineMenu
+              onClick={onToggleMenu}
+              className="menu w-7 h-7 cursor-pointer text-white"
+            />
+          )}
+        </div>
       </nav>
     </header>
   );
