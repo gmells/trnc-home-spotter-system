@@ -5,7 +5,14 @@ import { HiOutlineMenu } from "react-icons/hi";
 import { IoMdClose } from "react-icons/io";
 
 export default function Header() {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(() => {
+    return localStorage.getItem("menuOpen") === "true" ? true : false;
+  });
+
+  // Update local storage when menuOpen state changes
+  useEffect(() => {
+    localStorage.setItem("menuOpen", menuOpen);
+  }, [menuOpen]);
 
   function onToggleMenu() {
     setMenuOpen(!menuOpen);
