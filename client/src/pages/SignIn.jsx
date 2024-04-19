@@ -6,12 +6,12 @@ import {
   signInSuccess,
   signInFailure,
 } from "../redux/user/userSlice.js";
-import { useSelector } from "react-redux";
 import OAuth from "../components/OAuth.jsx";
 
 export default function SignIn() {
   const [formInfo, setformInfo] = useState({});
-  const { loading, error } = useSelector((state) => state.user);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleChange = (e) => {
