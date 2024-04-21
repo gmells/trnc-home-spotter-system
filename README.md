@@ -19,21 +19,26 @@ Created a project structure/tree defining the project structure by reorganizing 
 |-- src
 |   |-- assets
 |   |   |-- images
+|   |   |   |-- home.png
 |   |   |-- styles
 |   |-- components
 |   |   |-- Header.js
 |   |   |-- Footer.js
 |   |   |-- SearchBar.js
-|   |   |-- PropertyCard.js
+|   |   |-- OAuth.js
 |   |-- pages
 |   |   |-- Home.js
 |   |   |-- Profile.js
-|   |   |-- Properties.js
 |   |   |-- Contact.js
 |   |   |-- About.js
 |   |   |-- SignIn.js
 |   |   |-- SignUp.js
+|   |-- redux
+|   |   |-- user
+|   |   |   |-- userSlice.js
+|   |   |-- store.js
 |   |-- App.js
+|   |-- firebase.js
 |   |-- index.css
 |   |-- main.jsx
 
