@@ -12,7 +12,7 @@ export default function Profile() {
   const imgRef = useRef(null);
   const { currentUser } = useSelector((state) => state.user);
   const [file, setFile] = useState(undefined);
-  const [fileRate, setfileRate] = useState(0);
+  const [fileRate, setFileRate] = useState(0);
   const [fileUploadError, setFileUploadError] = useState(false);
   const [formData, setformData] = useState({});
   console.log(formData);
@@ -34,21 +34,24 @@ export default function Profile() {
     const storage = getStorage(app);
     const fileName = new Date().getTime() + file.name;
     const storageRef = ref(storage, fileName);
-    const uploadRate = uploadBytesResumable(storageRef, file);
+    const metadata = {
+      contentType: "image/jpeg",
+    };
+    const uploadTask = uploadBytesResumable(storageRef, file, metadata);
 
-    uploadRate.on(
+    uploadTask.on(
       "state_changed",
       (snapshot) => {
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        setfileRate(Math.round(progress));
+        setFileRate(Math.round(progress));
       },
 
       (error) => {
         setFileUploadError(true);
       },
       () => {
-        getDownloadURL(uploadRate.snapshot.ref).then((downloadURL) =>
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) =>
           setformData({ ...formData, avatar: downloadURL })
         );
       }
