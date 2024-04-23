@@ -34,10 +34,7 @@ export default function Profile() {
     const storage = getStorage(app);
     const fileName = new Date().getTime() + file.name;
     const storageRef = ref(storage, fileName);
-    const metadata = {
-      contentType: "image/jpeg",
-    };
-    const uploadTask = uploadBytesResumable(storageRef, file, metadata);
+    const uploadTask = uploadBytesResumable(storageRef, file);
 
     uploadTask.on(
       "state_changed",
@@ -77,6 +74,17 @@ export default function Profile() {
           alt="profile"
           className="rounded-full cursor-pointer object-cover h-24 w-24 self-center mt-2"
         />
+        <p className="text:sm self-center">
+          {fileUploadError ? (
+            <span className="text-red-600">Image Upload Error</span>
+          ) : fileRate > 0 && fileRate < 100 ? (
+            <span className="text-slate-500">{`Uploading at ${fileRate}%`}</span>
+          ) : fileRate === 100 ? (
+            <span className="text-green-600">Image Upload Successful</span>
+          ) : (
+            " "
+          )}
+        </p>
         <input
           type="text"
           placeholder="username"
