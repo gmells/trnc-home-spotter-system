@@ -7,6 +7,12 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import { app } from "../firebase";
+import {
+  updateUserStart,
+  updateUserSuccess,
+  updateUserFailure,
+} from "../redux/user/userSlice";
+import { useDispatch } from "react-redux";
 
 export default function Profile() {
   const imgRef = useRef(null);
@@ -14,10 +20,9 @@ export default function Profile() {
   const [file, setFile] = useState(undefined);
   const [fileRate, setFileRate] = useState(0);
   const [fileUploadError, setFileUploadError] = useState(false);
-  const [formData, setformData] = useState({});
-  console.log(formData);
-  console.log(fileRate);
-  console.log(fileUploadError);
+  const [formData, setFormData] = useState({});
+  const dispatch = useDispatch();
+
   // Firebase storage
   //       allow read;
   //       allow write: if
@@ -49,16 +54,44 @@ export default function Profile() {
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) =>
-          setformData({ ...formData, avatar: downloadURL })
+          setFormData({ ...formData, avatar: downloadURL })
         );
       }
     );
   };
 
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      dispatch(updateUserStart());
+      const res = await fetch(`/api/user/update/${currentUser._id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(updateUserFailure(data.message));
+        return;
+      }
+
+      dispatch(updateUserSuccess(data));
+    } catch (error) {
+      dispatch(updateUserFailure(error.message));
+    }
+  };
+
   return (
-    <div className="text-white p-3 max-w-lg mx-auto">
+    <div className="text-black p-3 max-w-lg mx-auto t">
       <h1 className="text-3xl text-center font-semibold my-6">Profile</h1>
-      <form className="flex flex-col gap-5">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-5">
         <input
           onChange={(e) => setFile(e.target.files[0])}
           type="file"
@@ -70,13 +103,15 @@ export default function Profile() {
           onClick={() => {
             imgRef.current.click();
           }}
-          src={formData || currentUser.avatar}
+          src={formData.avatar || currentUser.avatar}
           alt="profile"
-          className="rounded-full cursor-pointer object-cover h-24 w-24 self-center mt-2"
+          className="text-white rounded-full cursor-pointer object-cover h-24 w-24 self-center mt-2"
         />
         <p className="text:sm self-center">
           {fileUploadError ? (
-            <span className="text-red-600">Image Upload Error</span>
+            <span className="text-red-600">
+              Image Upload Error: file must not exceed 2mb
+            </span>
           ) : fileRate > 0 && fileRate < 100 ? (
             <span className="text-slate-500">{`Uploading at ${fileRate}%`}</span>
           ) : fileRate === 100 ? (
@@ -88,22 +123,27 @@ export default function Profile() {
         <input
           type="text"
           placeholder="username"
+          defaultValue={currentUser.username}
           id="username"
           className="bg-slate-200 border p-3 rounded-lg"
+          onClick={handleChange}
         />
         <input
           type="email"
           placeholder="email"
+          defaultValue={currentUser.username}
           id="email"
           className="bg-slate-200 border p-3 rounded-lg"
+          onClick={handleChange}
         />
         <input
-          type="text"
+          type="password"
           placeholder="password"
           id="password"
           className="bg-slate-200 border p-3 rounded-lg"
+          onClick={handleChange}
         />
-        <button className="bg-slate-800 p-3 rounded-lg uppercase hover:opacity-85 disabled:opacity-70">
+        <button className="text-white bg-slate-800 p-3 rounded-lg uppercase hover:opacity-85 disabled:opacity-70">
           update
         </button>
       </form>
