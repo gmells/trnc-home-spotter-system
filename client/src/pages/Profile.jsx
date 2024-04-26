@@ -16,12 +16,13 @@ import { useDispatch } from "react-redux";
 
 export default function Profile() {
   const imgRef = useRef(null);
-  const { currentUser } = useSelector((state) => state.user);
+  const { currentUser, loading, error } = useSelector((state) => state.user);
   const [file, setFile] = useState(undefined);
   const [fileRate, setFileRate] = useState(0);
   const [fileUploadError, setFileUploadError] = useState(false);
   const [formData, setFormData] = useState({});
   const dispatch = useDispatch();
+  const [updateValid, setUpdateValid] = useState(false);
 
   // Firebase storage
   //       allow read;
@@ -83,6 +84,7 @@ export default function Profile() {
       }
 
       dispatch(updateUserSuccess(data));
+      setUpdateValid(true);
     } catch (error) {
       dispatch(updateUserFailure(error.message));
     }
@@ -144,7 +146,7 @@ export default function Profile() {
           onClick={handleChange}
         />
         <button className="text-white bg-slate-800 p-3 rounded-lg uppercase hover:opacity-85 disabled:opacity-70">
-          update
+          {loading ? "loading..." : "update"}
         </button>
       </form>
       <div className="flex mt-5 justify-between text-[18px]">
@@ -155,6 +157,11 @@ export default function Profile() {
           Sign Out
         </span>
       </div>
+      <p className="text-red-700 mt-4">{error ? error : ""}</p>
+
+      <p className="text-green-700 mt-4">
+        {updateValid ? "User has been updated successfully" : ""}
+      </p>
     </div>
   );
 }

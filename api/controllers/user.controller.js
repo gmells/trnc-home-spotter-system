@@ -8,7 +8,9 @@ export const test = (req, res) => {
 
 export const updateUser = async (req, res, next) => {
   if (req.user.id !== req.params.id)
-    return next(errorHandler(401, "Access granted to User's own account Only"));
+    return next(
+      errorHandler(401, "Update access granted to User's own account Only")
+    );
   try {
     if (req.body.password) {
       req.body.password = bcryptjs.hashSync(req.body.password, 10);
@@ -30,6 +32,19 @@ export const updateUser = async (req, res, next) => {
     const { password, ...rest } = updatedUser._doc;
 
     res.status(200).json(rest);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const deleteUser = async (req, res, next) => {
+  if (req.user.id !== req.params.id)
+    return next(
+      errorHandler(401, "Delete access granted to User's own account Only")
+    );
+  try {
+    await User.findByIdAndDelete(req.params.id);
+    res.status(200).json("User has been deleted!");
   } catch (error) {
     next(error);
   }
