@@ -11,6 +11,12 @@ import {
   updateUserStart,
   updateUserSuccess,
   updateUserFailure,
+  deleteUserFailure,
+  deleteUserStart,
+  deleteUserSuccess,
+  signOutUserStart,
+  signOutUserFailure,
+  signOutUserSuccess,
 } from "../redux/user/userSlice";
 import { useDispatch } from "react-redux";
 
@@ -90,6 +96,41 @@ export default function Profile() {
     }
   };
 
+  const handleDeleteUser = async () => {
+    try {
+      dispatch(deleteUserStart());
+      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+        method: "DELETE",
+      });
+
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(deleteUserFailure(data.message));
+        return;
+      }
+
+      dispatch(deleteUserSuccess(data));
+    } catch (error) {
+      dispatch(deleteUserFailure(error.message));
+    }
+  };
+
+  const handleSignOut = async () => {
+    try {
+      dispatch(signOutUserStart());
+      const res = await fetch("/api/auth/signout");
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(signOutUserFailure(data.message));
+        return;
+      }
+
+      dispatch(signOutUserSuccess(data));
+    } catch (error) {
+      dispatch(signOutUserFailure(data.message));
+    }
+  };
+
   return (
     <div className="text-black p-3 max-w-lg mx-auto t">
       <h1 className="text-3xl text-center font-semibold my-6">Profile</h1>
@@ -150,10 +191,16 @@ export default function Profile() {
         </button>
       </form>
       <div className="flex mt-5 justify-between text-[18px]">
-        <span className="hover:opacity-90 text-red-600 cursor-pointer">
+        <span
+          onClick={handleDeleteUser}
+          className="hover:opacity-90 text-red-600 cursor-pointer"
+        >
           Delete Account
         </span>
-        <span className="hover:opacity-90 text-red-600 cursor-pointer">
+        <span
+          onClick={handleSignOut}
+          className="hover:opacity-90 text-red-600 cursor-pointer"
+        >
           Sign Out
         </span>
       </div>
