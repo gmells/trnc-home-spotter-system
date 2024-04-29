@@ -7,6 +7,7 @@ import SignUp from "./pages/SignUp";
 import Header from "./components/Header";
 import Contact from "./pages/Contact";
 import Privacy from "./components/Privacy";
+import CreateProperty from "./pages/CreateProperty";
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
           <Route path="/contact" element={<Contact />} />
           <Route element={<Privacy />}>
             <Route path="/profile" element={<Profile />} />
+            <Route path="/create-property" element={<CreateProperty />} />
           </Route>
         </Routes>
       </BrowserRouter>

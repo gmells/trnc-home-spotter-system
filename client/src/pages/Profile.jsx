@@ -19,6 +19,7 @@ import {
   signOutUserSuccess,
 } from "../redux/user/userSlice";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 export default function Profile() {
   const imgRef = useRef(null);
@@ -189,6 +190,12 @@ export default function Profile() {
         <button className="text-white bg-slate-800 p-3 rounded-lg uppercase hover:opacity-85 disabled:opacity-70">
           {loading ? "loading..." : "update"}
         </button>
+        <Link
+          className="text-white text-center bg-purple-600 p-3 rounded-lg uppercase hover:opacity-85"
+          to={"/create-property"}
+        >
+          add Property
+        </Link>
       </form>
       <div className="flex mt-5 justify-between text-[18px]">
         <span
