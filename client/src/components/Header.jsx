@@ -37,14 +37,14 @@ export default function Header() {
     <header className="bg-slate-800 shadow-md ">
       <nav className="flex justify-between items-center w-[100%] mx-auto p-3">
         <Link to="/" onClick={closeMenu}>
-          <div className="relative  font-bold text-sm sm:text-xl flex hover:shadow-lg items-center ">
+          <div className="relative font-bold text-sm sm:text-xl flex hover:shadow-lg items-center ">
             <img className="w-7" src={logo} alt="Logo" />
             <span className="text-slate-500">TRNC</span>
             <span className="text-slate-200">HOMESPOTTER</span>
           </div>
         </Link>
 
-        <form className="bg-slate-500 p-3 rounded-lg flex items-center ">
+        <form className="bg-slate-500 p-3 ml-9 rounded-lg flex items-center">
           <input
             type="text"
             placeholder="Search..."
@@ -54,7 +54,7 @@ export default function Header() {
         </form>
 
         <div
-          className={`nav-panel flex md:flex-row flex-col md:static absolute bg-slate-900 md:justify-evenly md:bg-transparent min-h-[60vh] md:min-h-[7vh] gap-[4vw] items-center left-0 top-0 w-full h-[50%] pt-6 md:pt-0 ${
+          className={` flex md:flex-row flex-col md:static absolute bg-slate-900 md:justify-evenly md:bg-transparent min-h-[60vh] md:min-h-[7vh] gap-[4vw] items-center left-0 top-0 w-full h-[50%] pt-6 md:pt-0 ${
             menuOpen || window.innerWidth >= 768
               ? "top-[10%]"
               : "-top-[100%] hidden"
