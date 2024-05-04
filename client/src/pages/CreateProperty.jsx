@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   getDownloadURL,
   getStorage,
@@ -9,6 +10,7 @@ import { app } from "../firebase";
 import { useSelector } from "react-redux";
 
 export default function CreateProperty() {
+  const navigate = useNavigate();
   const [files, setFiles] = useState([]);
   const { currentUser } = useSelector((state) => state.user);
   const [formData, setFormData] = useState({
@@ -16,7 +18,7 @@ export default function CreateProperty() {
     description: "",
     address: "",
     standardPrice: 100,
-    discountedPrice: 100,
+    discountedPrice: 0,
     bedrooms: 1,
     bathrooms: 1,
     type: "rent",
@@ -150,6 +152,7 @@ export default function CreateProperty() {
       if (data.success === false) {
         setError(data.message);
       }
+      navigate(`/property/${data._id}`);
     } catch (error) {
       setError(error.message);
       setLoading(false);
@@ -287,22 +290,25 @@ export default function CreateProperty() {
                 <span className="text-xs">($ / month)</span>
               </div>
             </div>
-            <div className="flex items-center gap-2">
-              <input
-                className="p-3 rounded-lg border border-gray-300 text-black"
-                type="number"
-                id="discountedPrice"
-                min="100"
-                max="100000"
-                required
-                onChange={handleChange}
-                value={formData.discountedPrice}
-              />
-              <div className="flex flex-col items-center">
-                <p>Discounted Price</p>
-                <span className="text-xs">($ / month)</span>
+
+            {formData.offer && (
+              <div className="flex items-center gap-2">
+                <input
+                  className="p-3 rounded-lg border border-gray-300 text-black"
+                  type="number"
+                  id="discountedPrice"
+                  min="0"
+                  max="100000"
+                  required
+                  onChange={handleChange}
+                  value={formData.discountedPrice}
+                />
+                <div className="flex flex-col items-center">
+                  <p>Discounted Price</p>
+                  <span className="text-xs">($ / month)</span>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
         <div className="flex flex-col flex-1 gap-4">
@@ -353,7 +359,10 @@ export default function CreateProperty() {
                 </button>
               </div>
             ))}
-          <button className="p-3 bg-purple-700 text-white rounded-lg uppercase hover:opacity-85 disabled:opacity-70">
+          <button
+            disabled={loading || uploading}
+            className="p-3 bg-purple-700 text-white rounded-lg uppercase hover:opacity-85 disabled:opacity-70"
+          >
             {loading ? "Creating..." : "Create Property"}
           </button>
           {error && <p className="text-red-700 text-sm">{error}</p>}
