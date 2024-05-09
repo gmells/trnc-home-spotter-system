@@ -30,6 +30,8 @@ export default function Profile() {
   const [formData, setFormData] = useState({});
   const dispatch = useDispatch();
   const [updateValid, setUpdateValid] = useState(false);
+  const [viewPropertiesError, setViewPropertiesError] = useState(false);
+  const [userProperties, setUserProperties] = useState([]);
 
   // Firebase storage
   //       allow read;
@@ -132,6 +134,21 @@ export default function Profile() {
     }
   };
 
+  const handleViewProperties = async () => {
+    try {
+      setViewPropertiesError(false);
+      const res = await fetch(`api/user/properties/${currentUser._id}`);
+      const data = await res.json();
+      if (data.success === false) {
+        setViewPropertiesError(true);
+        return;
+      }
+      setUserProperties(data);
+    } catch (error) {
+      setViewPropertiesError(true);
+    }
+  };
+
   return (
     <div className="text-black p-3 max-w-lg mx-auto t">
       <h1 className="text-3xl text-center font-semibold my-6">Profile</h1>
@@ -216,6 +233,46 @@ export default function Profile() {
       <p className="text-green-700 mt-4">
         {updateValid ? "User has been updated successfully" : ""}
       </p>
+      <button
+        onClick={handleViewProperties}
+        className="text-purple-700 uppercase w-full"
+      >
+        View Properties
+      </button>
+      <p className="text-red-700 mt-5">
+        {viewPropertiesError ? "Error viewing properties" : ""}
+      </p>
+
+      {userProperties && userProperties.length > 0 && (
+        <div className="">
+          <h1 className="text-center my-7 text-white"> Your Listings</h1>
+          {userProperties.map((property) => (
+            <div
+              key={property._id}
+              className="border p-3 rounded-lg flex items-center justify-between gap-4"
+            >
+              <Link to={`property/${property / property._id}`}>
+                <img
+                  className="w-16 h-16 object-contain"
+                  src={property.imageUrls[0]}
+                  alt="property cover"
+                />
+              </Link>
+              <Link
+                to={`property/${property / property._id}`}
+                className="text-slate-600 font-semibold flex-1 hover:underline truncate"
+              >
+                <p>{property.name}</p>
+              </Link>
+
+              <div className="flex flex-col item-center">
+                <button className="text-red-700">Delete</button>
+                <button className="text-green-700">Edit</button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import bcryptjs from "bcryptjs";
 import User from "../models/user.model.js";
 import { errorHandler } from "../utility/error.js";
+import Property from "../models/property.model.js";
 
 export const test = (req, res) => {
   res.json({ message: "API route is working!" });
@@ -48,5 +49,20 @@ export const deleteUser = async (req, res, next) => {
     res.status(200).json("User has been deleted!");
   } catch (error) {
     next(error);
+  }
+};
+
+export const getUserProperties = async (req, res, next) => {
+  if (req.user.id === req.params.id) {
+    try {
+      const properties = await Property.find({ userRef: req.params.id });
+      res.status(200).json(properties);
+    } catch (error) {
+      next(error);
+    }
+  } else {
+    return next(
+      errorHandler(401, "You can only view your own property listing!")
+    );
   }
 };
