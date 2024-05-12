@@ -149,6 +149,23 @@ export default function Profile() {
     }
   };
 
+  const handleListingDelete = async (propertyId) => {
+    try {
+      const res = await fetch(`api/property/delete/${propertyId}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        console.log(data.message);
+        return;
+      }
+
+      setUserProperties((prev) =>
+        prev.filter((property) => property._id !== propertyId)
+      );
+    } catch (error) {}
+  };
+
   return (
     <div className="text-black p-3 max-w-lg mx-auto t">
       <h1 className="text-3xl text-center font-semibold my-6">Profile</h1>
@@ -235,7 +252,7 @@ export default function Profile() {
       </p>
       <button
         onClick={handleViewProperties}
-        className="text-purple-700 uppercase w-full"
+        className="text-purple-700 uppercase w-full hover:opacity-80"
       >
         View Properties
       </button>
@@ -244,8 +261,11 @@ export default function Profile() {
       </p>
 
       {userProperties && userProperties.length > 0 && (
-        <div className="">
-          <h1 className="text-center my-7 text-white"> Your Listings</h1>
+        <div className="flex flex-col gap-4">
+          <h1 className="text-center my-7 text-white text-2xl ">
+            {" "}
+            View Property Listings
+          </h1>
           {userProperties.map((property) => (
             <div
               key={property._id}
@@ -266,8 +286,17 @@ export default function Profile() {
               </Link>
 
               <div className="flex flex-col item-center">
-                <button className="text-red-700">Delete</button>
-                <button className="text-green-700">Edit</button>
+                <button
+                  onClick={() => handleListingDelete(property._id)}
+                  className="text-red-700 hover:opacity-70"
+                >
+                  Delete
+                </button>
+                <Link to={`/update-property/${property._id}`}>
+                  <button className="text-green-700 hover:opacity-70">
+                    Edit
+                  </button>
+                </Link>
               </div>
             </div>
           ))}
