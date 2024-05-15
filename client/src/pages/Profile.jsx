@@ -163,11 +163,13 @@ export default function Profile() {
       setUserProperties((prev) =>
         prev.filter((property) => property._id !== propertyId)
       );
-    } catch (error) {}
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (
-    <div className="text-black p-3 max-w-lg mx-auto t">
+    <div className="text-white p-3 max-w-lg mx-auto t">
       <h1 className="text-3xl text-center font-semibold my-6">Profile</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-5">
         <input
@@ -178,14 +180,12 @@ export default function Profile() {
           accept="image/*"
         />
         <img
-          onClick={() => {
-            imgRef.current.click();
-          }}
+          onClick={() => imgRef.current.click()}
           src={formData.avatar || currentUser.avatar}
           alt="profile"
           className="text-white rounded-full cursor-pointer object-cover h-24 w-24 self-center mt-2"
         />
-        <p className="text:sm self-center">
+        <p className="text-sm self-center">
           {fileUploadError ? (
             <span className="text-red-600">
               Image Upload Error: file must not exceed 2mb
@@ -204,7 +204,7 @@ export default function Profile() {
           defaultValue={currentUser.username}
           id="username"
           className="bg-slate-200 border p-3 rounded-lg"
-          onClick={handleChange}
+          onChange={handleChange}
         />
         <input
           type="email"
@@ -212,16 +212,19 @@ export default function Profile() {
           defaultValue={currentUser.username}
           id="email"
           className="bg-slate-200 border p-3 rounded-lg"
-          onClick={handleChange}
+          onChange={handleChange}
         />
         <input
           type="password"
           placeholder="password"
           id="password"
           className="bg-slate-200 border p-3 rounded-lg"
-          onClick={handleChange}
+          onChange={handleChange}
         />
-        <button className="text-white bg-slate-800 p-3 rounded-lg uppercase hover:opacity-85 disabled:opacity-70">
+        <button
+          disabled={loading}
+          className="text-white bg-slate-800 p-3 rounded-lg uppercase hover:opacity-85 disabled:opacity-70"
+        >
           {loading ? "loading..." : "update"}
         </button>
         <Link
@@ -262,7 +265,7 @@ export default function Profile() {
 
       {userProperties && userProperties.length > 0 && (
         <div className="flex flex-col gap-4">
-          <h1 className="text-center my-7 text-white text-2xl ">
+          <h1 className="text-center mt-7 text-white text-2xl font-semibold ">
             {" "}
             View Property Listings
           </h1>
@@ -271,7 +274,7 @@ export default function Profile() {
               key={property._id}
               className="border p-3 rounded-lg flex items-center justify-between gap-4"
             >
-              <Link to={`property/${property / property._id}`}>
+              <Link to={`/property/${property._id}`}>
                 <img
                   className="w-16 h-16 object-contain"
                   src={property.imageUrls[0]}
@@ -279,7 +282,7 @@ export default function Profile() {
                 />
               </Link>
               <Link
-                to={`property/${property / property._id}`}
+                to={`/property/${property._id}`}
                 className="text-slate-600 font-semibold flex-1 hover:underline truncate"
               >
                 <p>{property.name}</p>
@@ -288,12 +291,12 @@ export default function Profile() {
               <div className="flex flex-col item-center">
                 <button
                   onClick={() => handleListingDelete(property._id)}
-                  className="text-red-700 hover:opacity-70"
+                  className="text-red-700 hover:opacity-70 uppercase"
                 >
                   Delete
                 </button>
                 <Link to={`/update-property/${property._id}`}>
-                  <button className="text-green-700 hover:opacity-70">
+                  <button className="text-green-700 hover:opacity-70 uppercase">
                     Edit
                   </button>
                 </Link>

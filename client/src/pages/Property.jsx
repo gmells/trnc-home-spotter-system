@@ -9,11 +9,11 @@ import {
   FaBath,
   FaBed,
   FaChair,
-  FaMapMarkedAlt,
   FaMapMarkerAlt,
   FaParking,
   FaShare,
 } from "react-icons/fa";
+import Contact from "../components/Contact";
 
 export default function Property() {
   SwiperCore.use([Navigation]);
@@ -21,10 +21,9 @@ export default function Property() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [contact, setContact] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
   const params = useParams();
-
-  console.log(currentUser._id, property?.userRef);
 
   useEffect(() => {
     const fetchProperty = async () => {
@@ -137,15 +136,21 @@ export default function Property() {
               </li>
               <li className=" flex-col ">
                 {" "}
-                <FaBath className="text-lg text-slate-500" />
+                <FaChair className="text-lg text-slate-500" />
                 {property.furnished ? "Furnished" : "Unfurnished"}
               </li>
             </ul>
-            {currentUser && property.userRef !== currentUser._id && (
-              <button className="bg-yellow-900 uppercase rounded-lg p-3 hover:opacitty-80">
-                Contact Lanlord
-              </button>
-            )}
+            {currentUser &&
+              property.userRef !== currentUser._id &&
+              !contact && (
+                <button
+                  onClick={() => setContact(true)}
+                  className="bg-yellow-900 uppercase rounded-lg p-3 hover:opacity-80"
+                >
+                  Contact Lanlord
+                </button>
+              )}
+            {contact && <Contact property={property} />}
           </div>
         </div>
       )}

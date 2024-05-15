@@ -66,3 +66,16 @@ export const getUserProperties = async (req, res, next) => {
     );
   }
 };
+
+export const getUser = async (req, res, next) => {
+  console.log("helooo");
+  try {
+    const user = await User.find({ _id: req.params.id });
+
+    if (!user) return next(errorHandler(404, "User not found!"));
+
+    res.status(200).json(user);
+  } catch (error) {
+    next(error);
+  }
+};

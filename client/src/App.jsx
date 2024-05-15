@@ -5,7 +5,6 @@ import About from "./pages/About";
 import Profile from "./pages/Profile";
 import SignUp from "./pages/SignUp";
 import Header from "./components/Header";
-import Contact from "./pages/Contact";
 import Privacy from "./components/Privacy";
 import CreateProperty from "./pages/CreateProperty";
 import UpdateProperty from "./pages/UpdateProperty";
@@ -21,7 +20,6 @@ export default function App() {
           <Route path="/about" element={<About />} />
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/contact" element={<Contact />} />
           <Route path="/property/:propertyId" element={<Property />} />
           <Route element={<Privacy />}>
             <Route path="/profile" element={<Profile />} />

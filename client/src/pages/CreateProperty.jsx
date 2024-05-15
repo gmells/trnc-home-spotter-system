@@ -15,6 +15,7 @@ export default function CreateProperty() {
   const { currentUser } = useSelector((state) => state.user);
   const [formData, setFormData] = useState({
     name: "",
+    user_id: currentUser._id,
     description: "",
     address: "",
     standardPrice: 100,
