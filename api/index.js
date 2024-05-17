@@ -5,7 +5,6 @@ import userRouter from "./routes/user.route.js";
 import authRouter from "./routes/auth.route.js";
 import propertyRouter from "./routes/property.route.js";
 import cookieParser from "cookie-parser";
-import cors from "cors";
 dotenv.config();
 
 mongoose
@@ -19,13 +18,6 @@ mongoose
 
 const app = express();
 
-const corsOptions = {
-  origin: "http://localhost:5173/",
-  optionsSuccessStatus: 200,
-};
-
-app.use(cors(corsOptions));
-
 app.use(express.json());
 
 app.use(cookieParser());
@@ -33,7 +25,7 @@ app.use(cookieParser());
 app.listen(3000, () => {
   console.log("server is running on portb 3000");
 });
-app.all("/api/user", cors(corsOptions));
+
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/property", propertyRouter);

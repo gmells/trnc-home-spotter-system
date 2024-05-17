@@ -161,6 +161,7 @@ export default function CreateProperty() {
   };
   return (
     <main className="text-white max-w-4xl p-3 mx-auto">
+      <div className="h-[80px]"></div>
       <h1 className="my-7 font-semibold text-3xl text-center ">
         Add a Property
       </h1>

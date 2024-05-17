@@ -49,6 +49,7 @@ export default function Property() {
 
   return (
     <main className="text-white">
+      <div className="h-[80px]"></div>
       {loading && <p className="text-center text-2xl my-7">loading...</p>}
 
       {error && (
@@ -92,8 +93,8 @@ export default function Property() {
               {property.name} - ${" "}
               {property.offer
                 ? property.discountedPrice.toLocaleString("en-US")
-                : property.standardPrice.toLocalString("en-US")}
-              {property.type === "rent" && "/ month"}
+                : property.standardPrice.toLocaleString("en-US")}
+              {property.type === "rent" && "/month"}
             </p>
             <p className="flex mt-5 gap-2 text-slate-400 my-2 items-center ">
               <FaMapMarkerAlt className="text-green-700" />
@@ -105,7 +106,8 @@ export default function Property() {
               </p>
               {property.offer && (
                 <p className="max-w-[200px] text-white rounded-md bg-green-900 text-center w-full p-2">
-                  ${+property.standardPrice - +property.discountedPrice}
+                  ${+property.standardPrice - +property.discountedPrice}{" "}
+                  discount
                 </p>
               )}
             </div>
@@ -113,7 +115,7 @@ export default function Property() {
               <span className="font-semibold text-white">Description: </span>
               {property.description}
             </p>
-            <ul className="flex gap-10 sm:6 text-slate-400 font-semibold flex-wrap">
+            <ul className="flex gap-10 sm:gap-6 text-slate-400 font-semibold flex-wrap">
               <li className=" flex-col ">
                 {" "}
                 <FaBed className="text-lg text-slate-500" />

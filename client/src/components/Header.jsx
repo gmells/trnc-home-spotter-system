@@ -1,109 +1,203 @@
 import React, { useEffect, useState } from "react";
-import { FaSearch } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import logo from "../assets/images/home.png";
-import { HiOutlineMenu } from "react-icons/hi";
-import { IoMdClose } from "react-icons/io";
+import profile from "../assets/images/home.png";
+import Logo from "../components/Logo.jsx";
+
 import { useSelector } from "react-redux";
 
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
-  const [menuOpen, setMenuOpen] = useState(() => {
-    return localStorage.getItem("menuOpen") === "true" ? true : false;
-  });
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
-  // Update local storage when menuOpen state changes
-  useEffect(() => {
-    localStorage.setItem("menuOpen", menuOpen);
-  }, [menuOpen]);
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
 
-  function onToggleMenu() {
-    setMenuOpen(!menuOpen);
-  }
-
-  function closeMenu() {
-    if (window.innerWidth < 768) {
-      setMenuOpen(false);
-    }
-  }
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
+  const handleSearchInputChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
 
   useEffect(() => {
-    if (window.innerWidth >= 768) {
-      setMenuOpen(true);
-    }
+    const handleResize = () => {
+      if (window.innerWidth > 768) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   return (
-    <header className="bg-slate-800 shadow-md ">
-      <nav className="flex justify-between items-center w-[100%] mx-auto p-3">
-        <Link to="/" onClick={closeMenu}>
-          <div className="relative font-bold text-sm sm:text-xl flex hover:shadow-lg items-center">
-            <img className="w-7" src={logo} alt="Logo" />
-            <span className="text-slate-500">TRNC</span>
-            <span className="text-slate-200">HOMESPOTTER</span>
-          </div>
-        </Link>
-
-        <form className="bg-slate-500 p-3 ml-9 rounded-lg flex items-center">
-          <input
-            type="text"
-            placeholder="Search..."
-            className="focus:outline-none bg-transparent w-24 sm:w-48"
-          />
-          <FaSearch className="text-slate-800 " />
-        </form>
-
-        <div
-          className={`nav-panel flex md:flex-row flex-col md:static absolute bg-slate-900 md:justify-evenly md:bg-transparent min-h-[60vh] md:min-h-[7vh] gap-[4vw] items-center left-0 top-0 w-full h-[50%] pt-6 md:pt-0 ${
-            menuOpen || window.innerWidth >= 768
-              ? "top-[10%]"
-              : "-top-[100%] hidden"
-          }`}
-          onClick={closeMenu}
-        >
-          <ul className="flex text-center md:flex-row flex-col md:items-center md:gap-[4vw] gap-6">
+    <header>
+      <nav className="fixed h-20 border-b-0.5 border-gray-300 flex items-center right-0 left-0 top-0 z-50 bg-opacity-80 backdrop-blur-[20px] bg-gray-100">
+        <div className="px-4 w-full flex items-center justify-between max-w-screen-lg mx-auto z-50">
+          <div className="w-28 h-28 flex items-center justify-center cursor-pointer">
             <Link to="/">
-              <li className="bg-black text-white w-20 md:items-center rounded-lg p-2 hover:bg-slate-600">
+              <a className="text-gray-600 font-semibold" to="/">
+                <Logo />
+              </a>
+            </Link>
+          </div>
+
+          <div className="flex items-center justify-between gap-8 max-w-screen-lg z-50">
+            <div className="relative md:w-64 hidden md:block">
+              <input
+                type="text"
+                placeholder="Search"
+                value={searchQuery}
+                onChange={handleSearchInputChange}
+                className="bg-gray-200 border text-gray-600 border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+              <button className="absolute inset-y-0 right-0 px-3 py-2 bg-blue-500 text-white font-semibold rounded-r-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                Search
+              </button>
+            </div>
+            <Link to="/">
+              <a
+                className="text-gray-600 font-semibold hover:text-gray-800 hidden md:block"
+                to="/"
+              >
                 Home
-              </li>
+              </a>
             </Link>
 
             <Link to="/about">
-              <li className="text-white hover:underline">About</li>
+              <a
+                className="text-gray-600 font-semibold hover:text-gray-800 hidden md:block"
+                to="/about"
+              >
+                About
+              </a>
             </Link>
 
-            <Link to="/contact">
-              <li className="text-white hover:underline">Contact us</li>
+            <Link to="/profile">
+              {currentUser ? (
+                <img
+                  className="rounded-full h-10 w-10 object-cover"
+                  src={currentUser.avatar}
+                  alt="profile picture"
+                />
+              ) : (
+                <a
+                  className="text-gray-600 font-semibold hover:text-gray-800 hidden md:block"
+                  to="/sign-in"
+                >
+                  Sign In
+                </a>
+              )}
             </Link>
-          </ul>
-          <Link to="/profile">
-            {currentUser ? (
-              <img
-                className="rounded-full h-10 w-10 object-cover"
-                src={currentUser.avatar}
-                alt="profile picture"
+
+            <Link to="/">
+              <a href="#">
+                <img src={profile} alt="profile" className="w-12 h-12" />
+              </a>
+            </Link>
+
+            <div
+              className="w-14 h-14 flex items-center justify-center border border-gray-300 rounded-full cursor-pointer md:hidden"
+              onClick={toggleMobileMenu}
+            >
+              <svg
+                width="26"
+                height="15"
+                viewBox="0 0 26 15"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  x="0.0712891"
+                  y="6.88281"
+                  width="25"
+                  height="2"
+                  fill="#030211"
+                />
+                <rect
+                  x="12.6279"
+                  y="0.807129"
+                  width="12.4168"
+                  height="2"
+                  fill="#030211"
+                />
+                <rect
+                  x="0.0644531"
+                  y="12.9092"
+                  width="12.4168"
+                  height="2"
+                  fill="#030211"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+        {isMobileMenuOpen && (
+          <div
+            className="mobile-menu md:hidden flex flex-col items-center gap-5 py-36 px-8 fixed top-0 right-0 justify-center h-screen w-full bg-opacity-97 backdrop-blur-[20px] bg-gray-100 z-50"
+            onClick={closeMobileMenu}
+          >
+            <div className="relative md:w-64">
+              <input
+                type="text"
+                placeholder="Search"
+                value={searchQuery}
+                onChange={handleSearchInputChange}
+                className="bg-gray-200 text-gray-600 border border-gray-300 rounded-lg py-2 px-4 pr-8 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
-            ) : (
-              <button className="bg-black text-white rounded-lg p-2 hover:bg-slate-600 flex gap-6">
-                Sign In
+              <button className="absolute inset-y-0 right-0 px-3 py-2 bg-blue-500 text-white font-semibold rounded-r-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                Search
               </button>
-            )}
-          </Link>
-        </div>
+            </div>
+            <Link to="/">
+              <a
+                className="text-gray-600 font-semibold text-2xl text-center hover:text-gray-800"
+                to="/"
+              >
+                Home
+              </a>
+            </Link>
 
-        <div className="md:hidden">
-          {menuOpen ? (
-            <IoMdClose
-              onClick={onToggleMenu}
-              className="menu w-7 h-7 cursor-pointer text-white"
-            />
-          ) : (
-            <HiOutlineMenu
-              onClick={onToggleMenu}
-              className="menu w-7 h-7 cursor-pointer text-white"
-            />
-          )}
-        </div>
+            <Link to="/about">
+              <a
+                className="text-gray-600 font-semibold text-2xl text-center hover:text-gray-800"
+                to="/about"
+              >
+                About
+              </a>
+            </Link>
+
+            <Link to="/profile">
+              {currentUser ? (
+                <img
+                  className="rounded-full h-10 w-10 object-cover"
+                  src={currentUser.avatar}
+                  alt="profile picture"
+                />
+              ) : (
+                <a
+                  className="text-gray-600 font-semibold text-2xl text-center hover:text-gray-800"
+                  to="/sign-in"
+                >
+                  Sign In
+                </a>
+              )}
+            </Link>
+
+            <div className="footer-buttom text-lg flex flex-col items-center gap-20">
+              <p className="text-gray-600 font-semibold text-center">
+                &copy; 2024 TRNC. All rights reserved.
+              </p>
+              <p className="text-gray-600 developedby text-lg">
+                Developed by <a href="#">Victor</a>
+              </p>
+            </div>
+          </div>
+        )}
       </nav>
     </header>
   );

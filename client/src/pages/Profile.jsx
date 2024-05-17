@@ -170,6 +170,7 @@ export default function Profile() {
 
   return (
     <div className="text-white p-3 max-w-lg mx-auto t">
+      <div className="h-[80px]"></div>
       <h1 className="text-3xl text-center font-semibold my-6">Profile</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-5">
         <input
@@ -203,7 +204,7 @@ export default function Profile() {
           placeholder="username"
           defaultValue={currentUser.username}
           id="username"
-          className="bg-slate-200 border p-3 rounded-lg"
+          className="bg-slate-200 border p-3 rounded-lg text-black"
           onChange={handleChange}
         />
         <input
@@ -211,14 +212,14 @@ export default function Profile() {
           placeholder="email"
           defaultValue={currentUser.username}
           id="email"
-          className="bg-slate-200 border p-3 rounded-lg"
+          className="bg-slate-200 border p-3 rounded-lg text-black"
           onChange={handleChange}
         />
         <input
           type="password"
           placeholder="password"
           id="password"
-          className="bg-slate-200 border p-3 rounded-lg"
+          className="bg-slate-200 border p-3 rounded-lg text-black"
           onChange={handleChange}
         />
         <button

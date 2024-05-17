@@ -44,6 +44,7 @@ export default function SignUp() {
 
   return (
     <div className="text-white p-3 max-w-lg mx-auto ">
+      <div className="h-[80px]"></div>
       <h1 className="text-white text-4xl my-7 text-center font-semibold">
         Sign Up
       </h1>
