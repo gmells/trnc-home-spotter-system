@@ -9,6 +9,7 @@ import Privacy from "./components/Privacy";
 import CreateProperty from "./pages/CreateProperty";
 import UpdateProperty from "./pages/UpdateProperty";
 import Property from "./pages/Property";
+import Search from "./pages/Search";
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
           <Route path="/about" element={<About />} />
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/search" element={<Search />} />
           <Route path="/property/:propertyId" element={<Property />} />
           <Route element={<Privacy />}>
             <Route path="/profile" element={<Profile />} />

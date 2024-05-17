@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import profile from "../assets/images/home.png";
 import Logo from "../components/Logo.jsx";
 
@@ -8,7 +8,8 @@ import { useSelector } from "react-redux";
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -16,9 +17,6 @@ export default function Header() {
 
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
-  };
-  const handleSearchInputChange = (event) => {
-    setSearchQuery(event.target.value);
   };
 
   useEffect(() => {
@@ -34,6 +32,21 @@ export default function Header() {
     };
   }, []);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const searchParams = new URLSearchParams(window.location.search);
+    searchParams.set("searchTerm", searchTerm);
+    const searchQuery = searchParams.toString();
+    navigate(`/search?${searchQuery}`);
+  };
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const searchTermUrl = searchParams.get("searchTerm");
+    if (searchTermUrl) {
+      setSearchTerm(searchTermUrl);
+    }
+  }, [location.search]);
   return (
     <header>
       <nav className="fixed h-20 border-b-0.5 border-gray-300 flex items-center right-0 left-0 top-0 z-50 bg-opacity-80 backdrop-blur-[20px] bg-gray-100">
@@ -47,18 +60,21 @@ export default function Header() {
           </div>
 
           <div className="flex items-center justify-between gap-8 max-w-screen-lg z-50">
-            <div className="relative md:w-64 hidden md:block">
+            <form
+              onSubmit={handleSubmit}
+              className="relative md:w-64 hidden md:block"
+            >
               <input
                 type="text"
                 placeholder="Search"
-                value={searchQuery}
-                onChange={handleSearchInputChange}
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
                 className="bg-gray-200 border text-gray-600 border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
               <button className="absolute inset-y-0 right-0 px-3 py-2 bg-blue-500 text-white font-semibold rounded-r-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
                 Search
               </button>
-            </div>
+            </form>
             <Link to="/">
               <a
                 className="text-gray-600 font-semibold hover:text-gray-800 hidden md:block"
@@ -141,18 +157,18 @@ export default function Header() {
             className="mobile-menu md:hidden flex flex-col items-center gap-5 py-36 px-8 fixed top-0 right-0 justify-center h-screen w-full bg-opacity-97 backdrop-blur-[20px] bg-gray-100 z-50"
             onClick={closeMobileMenu}
           >
-            <div className="relative md:w-64">
+            <form onSubmit={handleSubmit} className="relative md:w-64">
               <input
                 type="text"
                 placeholder="Search"
-                value={searchQuery}
-                onChange={handleSearchInputChange}
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
                 className="bg-gray-200 text-gray-600 border border-gray-300 rounded-lg py-2 px-4 pr-8 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
               <button className="absolute inset-y-0 right-0 px-3 py-2 bg-blue-500 text-white font-semibold rounded-r-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
                 Search
               </button>
-            </div>
+            </form>
             <Link to="/">
               <a
                 className="text-gray-600 font-semibold text-2xl text-center hover:text-gray-800"

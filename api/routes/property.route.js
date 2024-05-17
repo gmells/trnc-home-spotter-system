@@ -4,6 +4,7 @@ import {
   deleteProperty,
   updateProperty,
   getProperty,
+  getProperties,
 } from "../controllers/property.controller.js";
 import { verifyToken } from "../utility/verification.js";
 
@@ -13,5 +14,6 @@ router.post("/create", verifyToken, createProperty);
 router.delete("/delete/:id", verifyToken, deleteProperty);
 router.post("/update/:id", verifyToken, updateProperty);
 router.get("/get/:id", getProperty);
+router.get("/get", getProperties);
 
 export default router;
