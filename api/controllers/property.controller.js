@@ -61,7 +61,7 @@ export const getProperty = async (req, res, next) => {
     const property = await Property.findById(req.params.id);
 
     if (!property) {
-      return next(errorHandler(401, "property not found"));
+      return next(errorHandler(404, "property not found"));
     }
 
     res.status(200).json(property);
@@ -99,22 +99,20 @@ export const getProperties = async (req, res, next) => {
       type = { $in: ["sale", "rent"] };
     }
 
-    const searchQuery = req.query.searchQuery || "";
+    const searchTerm = req.query.searchTerm || "";
 
     const sort = req.query.sort || "createdAt";
 
     const order = req.query.order || "descending";
 
     const properties = await Property.find({
-      name: { $regex: searchQuery, $options: "i" },
+      name: { $regex: searchTerm, $options: "i" },
       offer,
       furnished,
       parking,
       type,
     })
-      .sort({
-        [sort]: order,
-      })
+      .sort({ [sort]: order })
       .limit(limit)
       .skip(startIndex);
 
