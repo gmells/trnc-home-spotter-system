@@ -94,7 +94,7 @@ export default function Property() {
               {property.offer
                 ? property.discountedPrice.toLocaleString("en-US")
                 : property.standardPrice.toLocaleString("en-US")}
-              {property.type === "rent" && "/month"}
+              {property.type === "rent" && " / month"}
             </p>
             <p className="flex mt-5 gap-2 text-slate-400 my-2 items-center ">
               <FaMapMarkerAlt className="text-green-700" />

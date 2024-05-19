@@ -380,7 +380,7 @@ export default function CreateProperty() {
             disabled={loading || uploading}
             className="p-3 bg-purple-700 text-white rounded-lg uppercase hover:opacity-85 disabled:opacity-70"
           >
-            {loading ? "Creating..." : "update Property"}
+            {loading ? "updating..." : "update Property"}
           </button>
           {error && <p className="text-red-700 text-sm">{error}</p>}
         </div>

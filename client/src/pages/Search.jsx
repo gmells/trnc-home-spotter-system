@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import PropertyCard from "../components/PropertyCard";
 
 export default function Search() {
   const [loading, setLoading] = useState(false);
-  const [properties, setProperties] = useState();
+  const [properties, setProperties] = useState([]);
   const navigate = useNavigate();
   const [searchbarData, setSearchbarData] = useState({
     searchTerm: "",
@@ -15,6 +16,7 @@ export default function Search() {
     order: "descending",
   });
 
+  console.log(properties);
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const searchTermFromUrl = searchParams.get("searchTerm");
@@ -227,6 +229,12 @@ export default function Search() {
                 Loading...
               </p>
             )}
+
+            {!loading &&
+              properties &&
+              properties.map((property) => (
+                <PropertyCard key={property._id} property={property} />
+              ))}
           </div>
         </div>
       </div>
