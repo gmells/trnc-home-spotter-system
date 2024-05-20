@@ -106,7 +106,10 @@ export default function Property() {
               </p>
               {property.offer && (
                 <p className="max-w-[200px] text-white rounded-md bg-green-900 text-center w-full p-2">
-                  ${+property.standardPrice - +property.discountedPrice}{" "}
+                  $
+                  {(
+                    +property.standardPrice - +property.discountedPrice
+                  ).toLocaleString("en-US")}{" "}
                   discount
                 </p>
               )}
