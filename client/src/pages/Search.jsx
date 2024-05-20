@@ -4,6 +4,7 @@ import PropertyCard from "../components/PropertyCard";
 
 export default function Search() {
   const [loading, setLoading] = useState(false);
+  const [viewMore, setViewMore] = useState(false);
   const [properties, setProperties] = useState([]);
   const navigate = useNavigate();
   const [searchbarData, setSearchbarData] = useState({
@@ -16,7 +17,6 @@ export default function Search() {
     order: "descending",
   });
 
-  console.log(properties);
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const searchTermFromUrl = searchParams.get("searchTerm");
@@ -52,6 +52,11 @@ export default function Search() {
       const searchQuery = searchParams.toString();
       const res = await fetch(`api/property/get?${searchQuery}`);
       const data = await res.json();
+      if (data.length > 8) {
+        setViewMore(true);
+      } else {
+        setViewMore(false);
+      }
       setProperties(data);
       setLoading(false);
     };
@@ -104,6 +109,21 @@ export default function Search() {
     searchParams.set("order", searchbarData.order);
     const searchQuery = searchParams.toString();
     navigate(`/search?${searchQuery}`);
+  };
+
+  const onViewMoreClick = async () => {
+    const numOfProperties = properties.length;
+    const startIndex = numOfProperties;
+    const searchParams = new URLSearchParams(location.search);
+    searchParams.set("startIndex", startIndex);
+    const searchQuery = searchParams.toString();
+    const res = await fetch(`/api/property/get?${searchQuery}`);
+    const data = await res.json();
+    if (data.length < 9) {
+      setViewMore(false);
+    }
+
+    setProperties([...properties, ...data]);
   };
 
   return (
@@ -235,6 +255,15 @@ export default function Search() {
               properties.map((property) => (
                 <PropertyCard key={property._id} property={property} />
               ))}
+
+            {viewMore && (
+              <button
+                className="text-blue-500 p-7 w-full text-center hover:underline text-xl"
+                onClick={onViewMoreClick}
+              >
+                View More
+              </button>
+            )}
           </div>
         </div>
       </div>

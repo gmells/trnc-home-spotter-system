@@ -282,7 +282,7 @@ export default function CreateProperty() {
                 type="number"
                 id="standardPrice"
                 min="100"
-                max="10000000"
+                max="100000000"
                 required
                 onChange={handleChange}
                 value={formData.standardPrice}
@@ -300,7 +300,7 @@ export default function CreateProperty() {
                   type="number"
                   id="discountedPrice"
                   min="0"
-                  max="100000"
+                  max="19000000"
                   required
                   onChange={handleChange}
                   value={formData.discountedPrice}
