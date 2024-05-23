@@ -362,7 +362,8 @@ export default function CreateProperty() {
               </div>
             ))}
           <button
-            disabled={loading || uploading}
+            disabled
+            // {loading || uploading}
             className="p-3 bg-purple-700 text-white rounded-lg uppercase hover:opacity-85 disabled:opacity-70"
           >
             {loading ? "Creating..." : "Create Property"}
