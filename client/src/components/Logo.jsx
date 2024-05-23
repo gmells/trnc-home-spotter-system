@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 const Logo = () => {
   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  const targetText = "TRNC";
+  const targetText = "TRNCHS";
   const [animationInterval, setAnimationInterval] = useState(null);
   const [animationTimeout, setAnimationTimeout] = useState(null);
   const [text, setText] = useState("");

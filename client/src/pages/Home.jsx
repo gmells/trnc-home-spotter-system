@@ -53,7 +53,7 @@ export default function Home() {
       <div className="h-[50px]"></div>
       <div className="mt-7 text-white">
         <div>
-          <div className="flex flex-col sm:flex-row justify-evenly">
+          <div className="flex flex-col sm:flex-row justify-evenly bg-slate-900 pb-16">
             {/* top view */}
             <div className="mt-20 w-full p-5 ml-5">
               <div className="text-slate-300 flex flex-col">
@@ -106,7 +106,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="sm:w-full md:w-1/2">
+            <div className="sm:ml-4  md:w-1/2">
               <Swiper navigation>
                 {offerProperties &&
                   offerProperties.length > 0 &&
@@ -116,6 +116,7 @@ export default function Home() {
                         style={{
                           background: `url(${property.imageUrls[0]}) center no-repeat`,
                           backgroundSize: "cover",
+                          margin: "0 15px 0 10px",
                         }}
                         className="h-[500px]"
                         key={property._id}
@@ -126,11 +127,11 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="max-w-6xl mx-auto p-3 flex flex-col gap-8 my-10">
+          <div className="max-w-6xl mx-auto p-3 flex flex-col gap-8 justify-center items-center my-10 ml-5 ">
             {offerProperties && offerProperties.length > 0 && (
               <div className=" mt-5">
                 <div className="my-5">
-                  <h2 className="font-semibold text-3xl text-custom-color">
+                  <h2 className="font-semibold text-3xl text-slate-300">
                     Most Recent Offers
                   </h2>
                   <Link
@@ -151,7 +152,7 @@ export default function Home() {
             {rentProperties && rentProperties.length > 0 && (
               <div className=" mt-5">
                 <div className="my-5">
-                  <h2 className="font-semibold text-3xl text-custom-color">
+                  <h2 className="font-semibold text-3xl text-slate-300">
                     Most Recent Properties for rent
                   </h2>
                   <Link
@@ -171,7 +172,7 @@ export default function Home() {
             {saleProperties && saleProperties.length > 0 && (
               <div className=" mt-5">
                 <div className="my-5">
-                  <h2 className="font-semibold text-3xl text-custom-color">
+                  <h2 className="font-semibold text-3xl text-slate-300">
                     Most Recent Properties for sale
                   </h2>
                   <Link
