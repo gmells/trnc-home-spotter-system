@@ -53,7 +53,7 @@ export default function Home() {
       <div className="h-[50px]"></div>
       <div className="mt-7 text-white">
         <div>
-          <div className="flex flex-col sm:flex-row justify-evenly bg-slate-900 pb-16">
+          <div className="flex flex-col sm:flex-row justify-evenly  pb-16">
             {/* top view */}
             <div className="mt-20 w-full p-5 ml-5">
               <div className="text-slate-300 flex flex-col">
@@ -116,7 +116,7 @@ export default function Home() {
                         style={{
                           background: `url(${property.imageUrls[0]}) center no-repeat`,
                           backgroundSize: "cover",
-                          margin: "0 15px 0 10px",
+                          margin: "0 1px 0 10px",
                         }}
                         className="h-[500px]"
                         key={property._id}
