@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import userRouter from "./routes/user.route.js";
 import authRouter from "./routes/auth.route.js";
 import propertyRouter from "./routes/property.route.js";
+import commentRouter from "./routes/comment.route.js";
 import cookieParser from "cookie-parser";
 import path from "path";
 dotenv.config();
@@ -32,6 +33,7 @@ app.listen(3000, () => {
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/property", propertyRouter);
+app.use("/api/comment", commentRouter);
 
 app.use(express.static(path.join(_dirname, "/client/dist")));
 

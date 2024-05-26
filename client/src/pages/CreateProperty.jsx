@@ -194,7 +194,7 @@ export default function CreateProperty() {
             className="p-3 rounded-lg border text-black"
             required
             onChange={handleChange}
-            vaule={formData.description}
+            value={formData.description}
           />
 
           <div className="flex gap-4 flex-wrap">

@@ -10,6 +10,7 @@ import CreateProperty from "./pages/CreateProperty";
 import UpdateProperty from "./pages/UpdateProperty";
 import Property from "./pages/Property";
 import Search from "./pages/Search";
+import ViewProperties from "./pages/ViewProperties";
 
 export default function App() {
   return (
@@ -26,6 +27,7 @@ export default function App() {
           <Route element={<Privacy />}>
             <Route path="/profile" element={<Profile />} />
             <Route path="/create-property" element={<CreateProperty />} />
+            <Route path="/view-property" element={<ViewProperties />} />
             <Route
               path="/update-property/:propertyId"
               element={<UpdateProperty />}

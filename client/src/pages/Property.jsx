@@ -14,6 +14,7 @@ import {
   FaShare,
 } from "react-icons/fa";
 import Contact from "../components/Contact";
+import Comments from "../components/Comments";
 
 export default function Property() {
   SwiperCore.use([Navigation]);
@@ -22,6 +23,8 @@ export default function Property() {
   const [error, setError] = useState(false);
   const [copied, setCopied] = useState(false);
   const [contact, setContact] = useState(false);
+  const [comment, setComment] = useState(false);
+  const [commentsData, setCommentsData] = useState([]);
   const { currentUser } = useSelector((state) => state.user);
   const params = useParams();
 
@@ -46,6 +49,10 @@ export default function Property() {
     };
     fetchProperty();
   }, [params.propertyId]);
+
+  const fetchComments = () => {
+    setComment(true);
+  };
 
   return (
     <main className="text-white">
@@ -152,10 +159,28 @@ export default function Property() {
                   onClick={() => setContact(true)}
                   className="bg-yellow-900 uppercase rounded-lg p-3 hover:opacity-80"
                 >
-                  Contact Lanlord
+                  Contact Landlord
                 </button>
               )}
             {contact && <Contact property={property} />}
+
+            {currentUser && !comment && (
+              <button
+                onClick={fetchComments}
+                className="bg-blue-800 uppercase rounded-lg p-3 hover:opacity-80"
+              >
+                View Comments
+              </button>
+            )}
+
+            {comment && (
+              <Comments
+                propertyId={property._id}
+                currentUserId={currentUser._id}
+                name={currentUser.username}
+                avatar={currentUser.avatar}
+              />
+            )}
           </div>
         </div>
       )}

@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.3",
+    "axios": "^1.7.2",
     "firebase": "^10.11.0",
     "ionic": "^5.4.16",
     "ionicons": "^7.3.0",
