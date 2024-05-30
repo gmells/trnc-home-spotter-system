@@ -53,7 +53,7 @@ export default function Home() {
       <div className="h-[50px]"></div>
       <div className="mt-7 text-white">
         <div>
-          <div className="flex flex-col sm:flex-row justify-evenly  pb-16">
+          <div className="flex flex-col sm:flex-row justify-evenly pb-16">
             {/* top view */}
             <div className="mt-20 w-full p-5 ml-5">
               <div className="text-slate-300 flex flex-col">
@@ -141,7 +141,7 @@ export default function Home() {
                     Show more Offers
                   </Link>
                 </div>
-                <div className="flex flex-wrap gap-8">
+                <div className="flex flex-wrap gap-8 ">
                   {offerProperties.map((property) => (
                     <PropertyCard property={property} key={property._id} />
                   ))}

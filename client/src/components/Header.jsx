@@ -39,6 +39,7 @@ export default function Header() {
     searchParams.set("searchTerm", searchTerm);
     const searchQuery = searchParams.toString();
     navigate(`/search?${searchQuery}`);
+    closeMobileMenu();
   };
 
   useEffect(() => {
@@ -55,9 +56,11 @@ export default function Header() {
         aria-label="Global"
       >
         <div class="flex lg:flex-1">
-          <a href="#" class="-m-1.5 p-1.5">
-            <Logo />
-          </a>
+          <Link to="/">
+            <a href="#" class="-m-1.5 p-1.5">
+              <Logo />
+            </a>
+          </Link>
         </div>
         <div class="flex lg:hidden">
           <button
@@ -67,17 +70,32 @@ export default function Header() {
           >
             <span class="sr-only">Open main menu</span>
             <svg
-              class="h-6 w-6"
+              width="26"
+              height="15"
+              viewBox="0 0 26 15"
               fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+              <rect
+                x="0.0712891"
+                y="6.88281"
+                width="25"
+                height="2"
+                fill="#030211"
+              />
+              <rect
+                x="12.6279"
+                y="0.807129"
+                width="12.4168"
+                height="2"
+                fill="#030211"
+              />
+              <rect
+                x="0.0644531"
+                y="12.9092"
+                width="12.4168"
+                height="2"
+                fill="#030211"
               />
             </svg>
           </button>
@@ -113,12 +131,6 @@ export default function Header() {
               About
             </a>
           </Link>
-
-          <Link to="/view-property">
-            <a class="text-sm font-semibold leading-6 text-gray-900" to="/view">
-              View Properties
-            </a>
-          </Link>
         </div>
         <div class="hidden lg:flex lg:flex-1 lg:justify-end">
           {currentUser ? (
@@ -131,12 +143,14 @@ export default function Header() {
               </a>
             </Link>
           ) : (
-            <a
-              class="text-sm font-semibold leading-6 text-gray-900"
-              to="/sign-in"
-            >
-              Sign In <span aria-hidden="true">&rarr;</span>
-            </a>
+            <Link to="/sign-in">
+              <a
+                class="hover:bg-gray-50  leading-6 text-gray-900"
+                to="/sign-in"
+              >
+                Sign In <span aria-hidden="true">&rarr;</span>
+              </a>
+            </Link>
           )}
         </div>
       </nav>
@@ -176,7 +190,7 @@ export default function Header() {
                   <div class="-mx-3">
                     <form
                       onSubmit={handleSubmit}
-                      className="relative md:w-64 hidden md:block"
+                      className="relative md:w-64  md:block"
                     >
                       <input
                         type="text"
@@ -191,7 +205,7 @@ export default function Header() {
                     </form>
 
                     <div class="mt-2 space-y-2" id="disclosure-1">
-                      <Link to="/">
+                      <Link onClick={closeMobileMenu} to="/">
                         <a
                           class="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                           to="/"
@@ -199,7 +213,7 @@ export default function Header() {
                           Home
                         </a>
                       </Link>
-                      <Link to="/about">
+                      <Link onClick={closeMobileMenu} to="/about">
                         <a
                           class="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                           to="/about"
@@ -207,21 +221,12 @@ export default function Header() {
                           About
                         </a>
                       </Link>
-
-                      <Link to="/view">
-                        <a
-                          class="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                          to="/view"
-                        >
-                          View Properties
-                        </a>
-                      </Link>
                     </div>
                   </div>
                 </div>
                 <div class="py-6">
                   {currentUser ? (
-                    <Link to="/profile">
+                    <Link onClick={closeMobileMenu} to="/profile">
                       <a
                         class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                         to="/profile"

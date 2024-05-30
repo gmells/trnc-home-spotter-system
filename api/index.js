@@ -2,9 +2,11 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRouter from "./routes/user.route.js";
+import chatRouter from "./routes/chat.route.js";
 import authRouter from "./routes/auth.route.js";
 import propertyRouter from "./routes/property.route.js";
 import commentRouter from "./routes/comment.route.js";
+import messageRouter from "./routes/message.route.js";
 import cookieParser from "cookie-parser";
 import path from "path";
 dotenv.config();
@@ -34,6 +36,8 @@ app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/property", propertyRouter);
 app.use("/api/comment", commentRouter);
+app.use("/api/message", messageRouter);
+app.use("/api/chat", chatRouter);
 
 app.use(express.static(path.join(_dirname, "/client/dist")));
 

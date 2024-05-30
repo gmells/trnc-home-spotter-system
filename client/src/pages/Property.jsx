@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useSelector } from "react-redux";
 import SwiperCore from "swiper";
 import { Navigation } from "swiper/modules";
+import axios from "axios";
 import "swiper/css/bundle";
 import {
   FaBath,
@@ -17,6 +18,8 @@ import Contact from "../components/Contact";
 import Comments from "../components/Comments";
 
 export default function Property() {
+  const navigate = useNavigate();
+
   SwiperCore.use([Navigation]);
   const [property, setProperty] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -24,7 +27,6 @@ export default function Property() {
   const [copied, setCopied] = useState(false);
   const [contact, setContact] = useState(false);
   const [comment, setComment] = useState(false);
-  const [commentsData, setCommentsData] = useState([]);
   const { currentUser } = useSelector((state) => state.user);
   const params = useParams();
 
@@ -52,6 +54,21 @@ export default function Property() {
 
   const fetchComments = () => {
     setComment(true);
+  };
+  const startChat = async () => {
+    try {
+      const response = await axios.post("/api/chat/start", {
+        propertyId: params.propertyId,
+        userId: property.userRef,
+        currentUserId: currentUser._id,
+      });
+      console.log(params.propertyId);
+      console.log(property.userRef);
+      console.log(currentUser._id);
+      navigate(`/viewchat/${response.data._id}`);
+    } catch (error) {
+      console.error("Error starting chat:", error);
+    }
   };
 
   return (
@@ -172,7 +189,7 @@ export default function Property() {
                 View Comments
               </button>
             )}
-
+            <button onClick={() => startChat()}>Start Chat</button>
             {comment && (
               <Comments
                 propertyId={property._id}
