@@ -43,11 +43,11 @@ https://github.com/user-attachments/assets/5cd7c783-08d6-4af5-b430-eaba15f8d27f
 
 
 ## <a name="what-i-learnt">:nerd_face: What I learnt</a>
-📔 **:old_key: Advanced Authentication**: I learnt how to implement JWT, Firebase, and Google OAuth for secure and seamless user access.
-📔: **:house_with_garden: Real-world CRUD Operations**: I learnt how to Create, read, update, and delete property listings using MongoDB.
-📔: **:wink: User-friendly Features**: Learnt how to enhance the user experience with image uploads, property listing management, and more.
-📔: **:rocket: Advanced Search Functionality**: I learnt how to apply cutting-edge search features to help users find what they're looking for.
-📔: **:globe_with_meridians: Deployment on Render**: Also learnt how to deploy MERN Stack on the 'render' platform.
+- [x] 📔 **:old_key: Advanced Authentication**: I learnt how to implement JWT, Firebase, and Google OAuth for secure and seamless user access.
+- [x] 📔: **:house_with_garden: Real-world CRUD Operations**: I learnt how to Create, read, update, and delete property listings using MongoDB.
+- [x] 📔: **:wink: User-friendly Features**: Learnt how to enhance the user experience with image uploads, property listing management, and more.
+- [x] 📔: **:rocket: Advanced Search Functionality**: I learnt how to apply cutting-edge search features to help users find what they're looking for.
+- [x] 📔: **:globe_with_meridians: Deployment on Render**: Also learnt how to deploy MERN Stack on the 'render' platform.
 
 
 
