@@ -29,7 +29,6 @@ https://github.com/user-attachments/assets/5cd7c783-08d6-4af5-b430-eaba15f8d27f
 - Tailwind CSS
 
 ## <a name="features">:star_struck: Features</a>
-## <a name="what-i-learnt">:nerd_face: What I learnt</a>
 
 👉 **Elegantly Designed Search bar with Enhanced Filtering Methods**: Filter search results by sale, rent, furnished, discount, parking space etc.
 
