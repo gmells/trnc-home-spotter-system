@@ -2,16 +2,87 @@
 
   _This system aims to create a real estate web application for the TRNC(Turkish Republic of  Northern Cyprus)_
 
-# TOOLS AND FRAMEWORKS
-- React.js
-- Javascript
-- Tailwind css
-- Vite
+## <a name="introduction">:star2: Introduction</a>
+
+This is a Real estate web apllication designed to ease the property search process for users. It highlights the effective use of MERN stack, still working on private chat with the landlord.
+
+## <a name="video">:movie_camera: Video (file had to clipped as it was too large) </a>
+
+https://github.com/user-attachments/assets/1222c2af-5305-46dd-9fa0-49e4c9d0a93e
+
+https://github.com/user-attachments/assets/aaf13297-c6a1-424b-ac08-6e41314d2052
+
+https://github.com/user-attachments/assets/a7e42c8b-2375-4cf4-809f-00d3ea423b1e
+
+https://github.com/user-attachments/assets/5cd7c783-08d6-4af5-b430-eaba15f8d27f
+
+
+## <a name="tech-stack">:gear: Tech Stack</a>
+
 - MongoDB
 - Express.js
+- React.js
 - Node.js
 - Firebase
 - Insomnia
+- Vite
+- Tailwind CSS
+
+## <a name="features">:star_struck: Features</a>
+## <a name="what-i-learnt">:nerd_face: What I learnt</a>
+
+👉 **Elegantly Designed Search bar with Enhanced Filtering Methods**: Filter search results by sale, rent, furnished, discount, parking space etc.
+
+👉 **Customisable Profile Section**: A profile section where you can upload properties, view property listings, edit and even delete properties with a customisable profile picture.
+
+👉 **User Authentication**: Engage with other functionalities in the application by loggin in throught the sign-in/sign-up button, google authentication available.
+
+👉 **Completely Responsive**: Consistent access and optimal viewing on any device with a fully responsive design that adapts to different screen sizes.
+
+👉 **Comment Section**: A interactive section where users can engage, share insights on properties viewed and also give remarks.
+
+
+## <a name="what-i-learnt">:nerd_face: What I learnt</a>
+:notebook_with_decorative_cover: **:old_key: Advanced Authentication**: I learnt how to implement JWT, Firebase, and Google OAuth for secure and seamless user access.
+:notebook_with_decorative_cover: **:house_with_garden: Real-world CRUD Operations**: I learnt how to Create, read, update, and delete property listings using MongoDB.
+:notebook_with_decorative_cover: **:wink: User-friendly Features**: Learnt how to enhance the user experience with image uploads, property listing management, and more.
+:notebook_with_decorative_cover: **:rocket: Advanced Search Functionality**: I learnt how to apply cutting-edge search features to help users find what they're looking for.
+:notebook_with_decorative_cover: **:globe_with_meridians: Deployment on Render**: Also learnt how to deploy MERN Stack on the 'render' platform.
+
+
+
+## <a name="quick-start">🤸 Quick Start</a>
+
+Follow these steps to set up the project locally on your machine.
+
+**Prerequisites**
+
+Make sure you have the following installed on your machine:
+
+- [Git](https://git-scm.com/)
+- [Node.js](https://nodejs.org/en)
+- [npm](https://www.npmjs.com/) (Node Package Manager)
+
+**Cloning the Repository**
+
+```bash
+https://github.com/gmells/trnc-home-spotter-system.git
+cd trnc-home-spotter-system
+```
+
+**Installation**
+
+Install the project dependencies using npm:
+
+```bash
+npm install
+```
+
+**Running the Project**
+
+```bash
+npm run dev
+
 
 # COMMIT INFORMATION
 Created a project structure/tree defining the project structure by reorganizing directories to include separate folders for components, pages, and services.
