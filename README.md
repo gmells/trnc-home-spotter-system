@@ -65,7 +65,7 @@ Make sure you have the following installed on your machine:
 **Cloning the Repository**
 
 ```bash
-https://github.com/gmells/trnc-home-spotter-system.git
+git clone https://github.com/gmells/trnc-home-spotter-system.git
 cd trnc-home-spotter-system
 ```
 
